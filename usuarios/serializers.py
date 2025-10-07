@@ -26,3 +26,4 @@ class UsuarioSerializer(serializers.ModelSerializer):
             is_admin=validated_data.get('is_admin', False),
             image_perfil=validated_data.get('image_perfil', None)   
         )
+        return user
