@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import Ticket, Nivel, Areas, Imagenes, Cargos, MensajesTicket, RespuestaMensajeTicket
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 
@@ -25,7 +24,6 @@ class NivelSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         validated_data['fecha_actualizacion'] = timezone.now()
         return super().update(instance,validated_data)
-
 
 class AreasSerializer(serializers.ModelSerializer):
     usr_modifica = serializers.PrimaryKeyRelatedField(
