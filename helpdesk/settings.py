@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'tickets',
     'usuarios',
     'administracion',
-    'rest_framework'
+    'rest_framework',
+    'corsheaders',
 ]
 
 AUTH_TOKEN_MODEL = 'usuarios.Token' 
@@ -64,6 +65,7 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -71,6 +73,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4321",  # Ejemplo si pruebas localmente en el puerto 4321
+    "https://4321-firebase-helpdesk-1759873617779.cluster-fsmcisrvfbb5cr5mvra3hr3qyg.cloudworkstations.dev", 
+    # Añade cualquier otro subdominio donde corra tu frontend
 ]
 
 ROOT_URLCONF = 'helpdesk.urls'
