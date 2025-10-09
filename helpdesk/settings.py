@@ -75,6 +75,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOW_CREDENTIALS = True 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4321",  # Ejemplo si pruebas localmente en el puerto 4321
     "https://4321-firebase-helpdesk-1759873617779.cluster-fsmcisrvfbb5cr5mvra3hr3qyg.cloudworkstations.dev", 
@@ -82,6 +83,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 ROOT_URLCONF = 'helpdesk.urls'
+
 
 TEMPLATES = [
     {
