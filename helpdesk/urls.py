@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from usuarios.views import login, register, profile, logout
 from tickets.views import niveles, areas, cargos, imagenes, mensajes, respuestamensaje
+from administracion.views import empresa, anuncios, tipoanuncio
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,6 +32,9 @@ urlpatterns = [
     path('api/cargos/',cargos),
     path('api/imagenes/',imagenes),
     path('api/mensajes/',mensajes),
-    path('api/respuestas',respuestamensaje)
+    path('api/respuestas',respuestamensaje),
+    path('api/empresa/',empresa),
+    path('api/anuncios/',anuncios),
+    path('api/tipoanuncio/',tipoanuncio),
 
 ]

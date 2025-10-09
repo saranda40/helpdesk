@@ -1,4 +1,4 @@
-from .generics import generar_crud_api_view
+from utils.generics import generar_crud_api_view
 
 from .serializers import TicketSerializer, AreasSerializer, CargosSerializer, NivelSerializer, AreasSerializer, RespuestaMensajeTicketSerializer, MensajesTicketSerializer, ImagenesSerializer
 from .models import Ticket, Areas, Nivel, MensajesTicket, RespuestaMensajeTicket, Cargos, Imagenes
