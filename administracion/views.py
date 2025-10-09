@@ -24,6 +24,6 @@ anuncios = generar_crud_api_view(
 tipoanuncio = generar_crud_api_view(
     Modelo=TipoAnuncio, 
     Serializer=TipoAnuncioSerializer, 
-    id_key='id', 
+    id_key='idTipoAnuncio', 
     name_key='Tipo Anuncio'
 )
