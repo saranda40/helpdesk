@@ -29,3 +29,9 @@ class UsuarioSerializer(serializers.ModelSerializer):
             image_perfil=validated_data.get('image_perfil', None)   
         )
         return user
+    
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ['__all__']

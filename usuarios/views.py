@@ -4,6 +4,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from django.db import IntegrityError # Útil para errores de BD
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
 
 from .serializers import UsuarioSerializer
 from .models import Usuario, Token
@@ -104,3 +105,10 @@ def logout(request):
         {"detail": "Token no encontrado o autenticación fallida."},
         status=status.HTTP_400_BAD_REQUEST
     )
+
+class MeView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        serializer = UsuarioSerializer(request.user)
+        return Response(serializer.data)
