@@ -64,6 +64,31 @@ def generar_crud_api_view(Modelo, Serializer, id_key, name_key):
             except Exception as e:
                 return Response({"error": f"Error al eliminar el {name_key}: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+        if request.method == 'PUT':
+            if not item_id:
+                return Response({"error": f"Se requiere el 'id' del {name_key} para actualizar."}, status=status.HTTP_400_BAD_REQUEST)
+
+            try:
+                instance = Modelo.objects.get(pk=item_id)
+                
+                data = request.data.copy() 
+                data['usr_modifica'] = request.user.pk 
+
+                serializer = Serializer(instance, data=data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_200_OK)
+                
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+            except Modelo.DoesNotExist:
+                return Response(
+                    {"detail": f"{name_key} con ID {item_id} no encontrado para actualizar."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+            except Exception as e:
+                return Response({"error": f"Error al actualizar el {name_key}: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
         # --- PATCH (Actualizar Parcial) ---
         if request.method == 'PATCH':
            
