@@ -49,7 +49,7 @@ def generar_crud_api_view(Modelo, Serializer, id_key, name_key):
             
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
         
-        if request.methofd == 'DELETE':
+        if request.method == 'DELETE':
             if not item_id:
                 return Response({"error": f"Se requiere el 'id' del {name_key} para eliminar."}, status=status.HTTP_400_BAD_REQUEST)
             try:
