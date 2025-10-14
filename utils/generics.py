@@ -7,7 +7,7 @@ from icecream import ic
 
 def generar_crud_api_view(Modelo, Serializer, id_key, name_key):
 
-    @api_view(['GET', 'PATCH', 'POST']) 
+    @api_view(['GET', 'PATCH', 'POST', 'DELETE']) 
     @permission_classes([IsAuthenticated])
     def generic_view(request):
         
@@ -48,6 +48,21 @@ def generar_crud_api_view(Modelo, Serializer, id_key, name_key):
                     return Response({"error": f"Error durante la creación del {name_key}: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+        
+        if request.methofd == 'DELETE':
+            if not item_id:
+                return Response({"error": f"Se requiere el 'id' del {name_key} para eliminar."}, status=status.HTTP_400_BAD_REQUEST)
+            try:
+                instance = Modelo.objects.get(pk=item_id)
+                instance.delete()
+                return Response({"detail": f"{name_key} con ID {item_id} eliminado correctamente."}, status=status.HTTP_200_OK)
+            except Modelo.DoesNotExist:
+                return Response(
+                    {"detail": f"{name_key} con ID {item_id} no encontrado para eliminar."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+            except Exception as e:
+                return Response({"error": f"Error al eliminar el {name_key}: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         # --- PATCH (Actualizar Parcial) ---
         if request.method == 'PATCH':
