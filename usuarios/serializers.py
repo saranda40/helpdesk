@@ -1,11 +1,31 @@
 # convertir datos de python a json
 from rest_framework import serializers
 from .models import Usuario
+from tickets.models import Areas, Cargos
+
+class AreaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Areas
+        fields = ['id', 'nombre']
+
+
+class CargoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cargos
+        fields = ['id', 'nombre']
+
 
 class UsuarioSerializer(serializers.ModelSerializer):
+    nombre_area = serializers.CharField(source='id_area.nombre', read_only=True)
+    nombre_cargo = serializers.CharField(source='id_cargo.nombre', read_only=True)
     class Meta:
         model = Usuario
-        fields = ('id','username','password','first_name','last_name','email','apodo','id_area','id_cargo','date_of_birth','is_active','crea_ticket','is_admin','image_perfil')
+        fields = [
+            'id', 'username', 'email', 'apodo', 'image_perfil',
+            'id_area', 'nombre_area', 'id_cargo', 'nombre_cargo',
+            'is_active', 'is_admin', 'crea_ticket',
+            'date_of_birth', 'fecha_creacion'
+        ]
         read_only_fields=('date_joined',)
         extra_kwargs = {
             'password': {'write_only': True} 
@@ -32,6 +52,23 @@ class UsuarioSerializer(serializers.ModelSerializer):
     
 
 class UserSerializer(serializers.ModelSerializer):
+    nombre_area = serializers.CharField(source='id_area.nombre', read_only=True)
+    nombre_cargo = serializers.CharField(source='id_cargo.nombre', read_only=True)
     class Meta:
         model = Usuario
-        fields = ['__all__']
+        fields = [
+            'id',
+            'username',
+            'email',
+            'apodo',
+            'image_perfil',
+            'id_area',
+            'nombre_area',
+            'id_cargo',
+            'nombre_cargo',
+            'is_active',
+            'is_admin',
+            'crea_ticket',
+            'date_of_birth',
+            'fecha_creacion'
+        ]
