@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from usuarios.views import login, register, profile, logout, MeView
+from usuarios.views import login, register, profile, logout, MeView, listar_usuarios
 from tickets.views import niveles, areas, cargos, imagenes, mensajes, respuestamensaje
 from administracion.views import empresa, anuncios, tipoanuncio
 from rest_framework_simplejwt.views import (
@@ -41,6 +41,7 @@ urlpatterns = [
     path('api/respuestas',respuestamensaje),
     path('api/empresa/',empresa),
     path('api/anuncios/',anuncios),
+    path('api/listarusuarios/',listar_usuarios),
     path('api/tipoanuncio/',tipoanuncio),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
