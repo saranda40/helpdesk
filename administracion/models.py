@@ -23,7 +23,7 @@ class Empresa(models.Model):
         ordering = ['id']
 
 class TipoAnuncio(models.Model):
-    idTipoAnuncio = models.AutoField(primary_key=True, auto_created=True)
+    id = models.AutoField(primary_key=True, auto_created=True)
     nombre = models.CharField(max_length=50)
     descripcion =  models.CharField(max_length=50, default='')
     is_activo = models.BooleanField(default=True)
@@ -39,7 +39,7 @@ class TipoAnuncio(models.Model):
     class Meta:
         verbose_name = 'TipoAnuncio'
         verbose_name_plural = 'TipoAnuncios'
-        ordering = ['idTipoAnuncio']
+        ordering = ['id']
 
 class Anuncios(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True)
