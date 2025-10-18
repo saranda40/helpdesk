@@ -35,6 +35,7 @@ class TipoAnuncioSerializer(serializers.ModelSerializer):
         return super().update(instance,validated_data)
 
 class AnunciosSerializer(serializers.ModelSerializer):
+    nombre_TipoAnuncio = serializers.CharField(source='IdTipoAnuncio.nombre', read_only=True)
     usr_modifica = serializers.PrimaryKeyRelatedField(
         queryset=Usuario.objects.all(), 
         required=False, 
@@ -42,7 +43,7 @@ class AnunciosSerializer(serializers.ModelSerializer):
     )
     class Meta:
         model = Anuncios
-        fields = ('__all__')
+        fields = ('id','titulo','contenido','fecha_publicacion','IdTipoAnuncio','nombre_TipoAnuncio','is_activo','usr_crea','fecha_actualizacion','usr_modifica')
         read_only_fields=('fecha_creacion',)    
     def update(self, instance, validated_data):
         validated_data['fecha_actualizacion'] = timezone.now()
